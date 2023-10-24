@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mimadou/go-fullstack/issues"
   },
-  "homepage": "https://github.com/mimadou/go-fullstack#readme"
+  "homepage": "https://github.com/mimadou/go-fullstack#readme",
+  "dependencies": {
+    "mongoose": "^7.6.3"
+  }
 }
