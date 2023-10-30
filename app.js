@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const stuffRoutes = require('./routes/stuff')
-
+const userRoutes = require('./routes/User')
 
 mongoose.connect('mongodb+srv://mamadou:mamadou1@cluster0.aoyawau.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -23,7 +23,8 @@ app.use((req, res, next) => {
 
   app.use(express.json());
 
-   app.use('/api/stuff', stuffRoutes)
+   app.use('/api/auth', stuffRoutes)
+   app.use('/api/auth', userRoutes)
 
 
 
