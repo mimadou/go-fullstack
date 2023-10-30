@@ -5,7 +5,7 @@ const router = express();
 
 const stuffCtrl = require('../controllers/stuff')
 
-  router.post('/', stuffCtrl.createThing)
+router.post('/', stuffCtrl.createThing)
 
 router.put('/:id' , stuffCtrl.modifyThing)
 
