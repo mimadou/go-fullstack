@@ -1,5 +1,5 @@
 const User = require('../models/User')
-
+const jwt = require('jsonwebtoken')
 const bcrypt = require("bcrypt")
 
 exports.signup = (req , res , next) =>{ 
@@ -10,17 +10,17 @@ exports.signup = (req , res , next) =>{
             password : hash
         })
         user.save()
-        .then(() => res.staus(200).json({message : 'utilisateur créé'}))
-        .catch(error => res.staus(400).json({error}))
+        .then(() => res.status(201).json({message : 'utilisateur créé'}))
+        .catch(error => res.status(400).json({error}))
     })
-    .catch(error => res.staus(500).json({error}))
+    .catch(error => res.status(500).json({error}))
 
 }
 exports.login = (req , res , next) =>{
     User.findOne({email : req.body.email})
     .then(user =>{
         if(user === null){
-            res.staus(401).json({message : "perte d'identifiant / ou mot de passe incorrect"})
+            res.status(401).json({message : "perte d'identifiant / ou mot de passe incorrect"})
         }else{
             bcrypt.compare(req.body.password , user.password)
             .then( valid => {
@@ -29,14 +29,18 @@ exports.login = (req , res , next) =>{
                 }else{
                     res.status(200).json({
                         userId : user._id,
-                        token : 'TOKEN'
+                        token :  jwt.sign(
+                            { userId: user._id },
+                            'RANDOM_TOKEN_SECRET',
+                            { expiresIn: '24h' }
+                        )
                     })
                 }
             })
-            .catch(error => res.staus(500).json({error}))
+            .catch(error => res.status(500).json({error}))
 
         }
 
     })
-    .catch(error => res.staus(500).json({error}))
+    .catch(error => res.status(500).json({error}))
 }

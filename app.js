@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 
   app.use(express.json());
 
-   app.use('/api/auth', stuffRoutes)
+   app.use('/api/stuff', stuffRoutes)
    app.use('/api/auth', userRoutes)
 
 
